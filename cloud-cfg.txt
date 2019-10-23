@@ -9,9 +9,17 @@ packages:
  - build-essential
 byobu_default: system 
 
+users:
+ - name: ubuntu 
+   ssh_authorized_keys:
+    - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDnhDuct8aXj6DX20ME1UISjgSsWO0+vgrG5B/u1qYUxFvjH9eohwi4hbILVHiMKvf/3W5wW7V+phJoTFtWuHX3GdR4V1irQ3azootcNQA7ix30EG/0ZX2f+zB6c/MYyJXk6QeRFs4d8Yp3FaDDMtjYlb2xYqnYAa+eKMOKck83PO1qVuzwZrPg1a0SLWOWaqZ7MMKEVv8n4VH4x1E+qX6cqNQtKi/25yUclD3E7D11i8w8wQUPit4NdK2hWr483wuJfXLrsz43jD5nMMFYsw7pacqpJ56eJMTvYDeHbloVoHVVG9Q9gFXxA3bT6l1c5rXETHe7FAbSBWEQtoT6rv4P ubuntu@group-15-ansible
+    - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDN+ZfvqSNp7iBjYvKe1D7xEksgEQSiyIiVVL9T/p8cPAD6dNd7cy8ltooJRHA2W3kS52xQLl20lZIF6imF+Uqp41xcJlYVNgB5ShBJM+mXkpDIcsBgM8v9ULPesY7VGOJAOU0Y/g/l+aWRzqdzKc9yprKflYABjTp229Lat/gbxbpkbdQ512x2YOD+5fLm6tAA+9cJQmSYfSzR0BiK2rJPYNYJ2fmcU7Pofgw7BRuZyI+zfsdoLd35XqNCa6SP7P9IC75RxG+Cz7hd8vlhNZC9G9s86Pa7ALPfML+BHAOQczCpxxVFnTBUZ9cHlMxnLXW1L8hlygGScEmOnGj4Rkif nygards@Nygards
+   sudo: ['ALL=(ALL) NOPASSWD:ALL']
+
 runcmd:
- - mkdir /home/ubuntu/.ssh
+ - sudo mkdir /home/ubuntu/.ssh
  - chmod 700 /home/ubuntu/.ssh
  - touch /home/ubuntu/.ssh/authorized_keys
  - chmod 600 /home/ubuntu/.ssh/authorized_keys
  - echo "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDnhDuct8aXj6DX20ME1UISjgSsWO0+vgrG5B/u1qYUxFvjH9eohwi4hbILVHiMKvf/3W5wW7V+phJoTFtWuHX3GdR4V1irQ3azootcNQA7ix30EG/0ZX2f+zB6c/MYyJXk6QeRFs4d8Yp3FaDDMtjYlb2xYqnYAa+eKMOKck83PO1qVuzwZrPg1a0SLWOWaqZ7MMKEVv8n4VH4x1E+qX6cqNQtKi/25yUclD3E7D11i8w8wQUPit4NdK2hWr483wuJfXLrsz43jD5nMMFYsw7pacqpJ56eJMTvYDeHbloVoHVVG9Q9gFXxA3bT6l1c5rXETHe7FAbSBWEQtoT6rv4P ubuntu@group-15-ansible" >> /home/ubuntu/.ssh/authorized_keys
+ - echo "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDN+ZfvqSNp7iBjYvKe1D7xEksgEQSiyIiVVL9T/p8cPAD6dNd7cy8ltooJRHA2W3kS52xQLl20lZIF6imF+Uqp41xcJlYVNgB5ShBJM+mXkpDIcsBgM8v9ULPesY7VGOJAOU0Y/g/l+aWRzqdzKc9yprKflYABjTp229Lat/gbxbpkbdQ512x2YOD+5fLm6tAA+9cJQmSYfSzR0BiK2rJPYNYJ2fmcU7Pofgw7BRuZyI+zfsdoLd35XqNCa6SP7P9IC75RxG+Cz7hd8vlhNZC9G9s86Pa7ALPfML+BHAOQczCpxxVFnTBUZ9cHlMxnLXW1L8hlygGScEmOnGj4Rkif nygards@Nygards" >> /home/ubuntu/.ssh/authorized_keys
