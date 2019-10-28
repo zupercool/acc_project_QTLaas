@@ -1,4 +1,5 @@
 - hosts: all
+  sudo: yes
   tasks:
 
    - name: Generate hosts file

@@ -1,0 +1,18 @@
+#15ansible ansible_ssh_host=192.168.1.72
+15sparkmaster ansible_ssh_host=192.168.1.74
+15sparkworker ansible_ssh_host=192.168.1.62
+
+#[configNode]
+#15ansible ansible_connection=local ansible_user=ubuntu
+
+[sparkmaster]
+15sparkmaster ansible_connection=local ansible_user=ubuntu
+
+[sparkworker]
+15sparkworker ansible_connection=local ansible_user=ubuntu
+
+[sparkmaster]
+15sparkmaster
+[sparkworker]
+15sparkworker
+
