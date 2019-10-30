@@ -34,9 +34,9 @@ flavor = nova.flavors.find(name=flavor)
 
 cloud = shade.openstack_cloud()   
 '''ip=cloud.create_floating_ip()'''
-ip =[x for x in  cloud.list_floating_ips() if x['attached']==False ]
-if len(ip)== 0:
-  ip=cloud.create_floating_ip()
+'''ip =[x for x in  cloud.list_floating_ips() if x['attached']==False ]
+if len(ip)== 0:'''
+ip=cloud.create_floating_ip('af006ff3-d68a-4722-a056-0f631c5a0039')
 print ip
 if private_net != None:
     net = nova.neutron.find_network(private_net)
@@ -52,11 +52,11 @@ if os.path.isfile(cfg_file_path):
 else:
     sys.exit("cloud-cfg.txt is not in current working directory")
 
-secgroups = ['default', 'vishnu']
+secgroups = ['default', 'vishnu','BootsmaSG']
 
 
 print "Creating instance ... "
-instance = nova.servers.create(name="15sparkmaster_dummy", image=image, flavor=flavor, userdata=userdata, nics=nics,security_groups=secgroups)
+instance = nova.servers.create(name="15sparkMasterDummy", image=image, flavor=flavor, userdata=userdata, nics=nics,security_groups=secgroups)
 inst_status = instance.status
 print "waiting for 10 seconds.. "
 time.sleep(10)
@@ -66,16 +66,12 @@ while inst_status == 'BUILD':
     time.sleep(5)
     instance = nova.servers.get(instance.id)
     inst_status = instance.status
+
 print instance.networks['SNIC 2019/10-32 Internal IPv4 Network'];
 print "Instance: "+ instance.name +" is in " + inst_status + "state";
-
 print "Associating Floating IP:"
-server = cloud.get_server("15sparkmaster_dummy")
-cloud.add_ips_to_server(server, ips=ip[0]['floating_ip_address'])
-while inst_status != 'ACTIVE':
-    print "Instance: "+instance.name+" is in "+inst_status+" state, sleeping for 5 seconds more..."
-    time.sleep(5)
-    instance = nova.servers.get(instance.id)
-    inst_status = instance.status
+server = cloud.get_server("15sparkMasterDummy")
+cloud.add_ips_to_server(server, ips=ip['floating_ip_address'])
 
 print instance
+

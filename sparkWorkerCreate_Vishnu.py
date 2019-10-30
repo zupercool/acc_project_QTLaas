@@ -34,9 +34,7 @@ flavor = nova.flavors.find(name=flavor)
 
 cloud = shade.openstack_cloud()   
 '''ip=cloud.create_floating_ip()'''
-ip =[x for x in  cloud.list_floating_ips() if x['attached']==False ]
-if len(ip)== 0:
-  ip=cloud.create_floating_ip()
+ip=cloud.create_floating_ip('af006ff3-d68a-4722-a056-0f631c5a0039')
 print ip
 
 if private_net != None:
@@ -53,11 +51,11 @@ if os.path.isfile(cfg_file_path):
 else:
     sys.exit("cloud-cfg.txt is not in current working directory")
 
-secgroups = ['default', 'vishnu']
+secgroups = ['default', 'vishnu','BootsmaSG']
 
 
 print "Creating instance ... "
-instance = nova.servers.create(name="15sparkworker_dummy", image=image, flavor=flavor, userdata=userdata, nics=nics,security_groups=secgroups)
+instance = nova.servers.create(name="15sparkWorkerDummy", image=image, flavor=flavor, userdata=userdata, nics=nics,security_groups=secgroups)
 inst_status = instance.status
 print "waiting for 10 seconds.. "
 time.sleep(10)
@@ -70,7 +68,7 @@ while inst_status == 'BUILD':
 print instance.networks['SNIC 2019/10-32 Internal IPv4 Network'];
 print "Instance: "+ instance.name +" is in " + inst_status + "state";
 
-server = cloud.get_server("15sparkworker_dummy")
-cloud.add_ips_to_server(server, ips=ip[0]['floating_ip_address'])
-server = cloud.get_server("15sparkworker_dummy")
+server = cloud.get_server("15sparkWorkerDummy")
+cloud.add_ips_to_server(server, ips=ip['floating_ip_address'])
+server = cloud.get_server("15sparkWorkerDummy")
 print server.status
