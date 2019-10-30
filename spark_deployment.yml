@@ -113,7 +113,11 @@
       - IRdisplay
 
 - hosts: sparkmaster
-  
+  module_defaults:
+    apt:
+      force_apt_get: yes
+      autoclean: yes
+  sudo: yes 
   vars_files:
    - setup_var.yml  
 
@@ -168,7 +172,7 @@
      shell: nohup {{spark_home}}/sbin/start-master.sh  &
 
 - hosts: sparkworker
-    
+  sudo: yes  
   vars_files:
    - setup_var.yml
 
