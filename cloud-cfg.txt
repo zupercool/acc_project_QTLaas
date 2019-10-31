@@ -12,7 +12,7 @@ byobu_default: system
 users:
  - name: ubuntu 
    ssh_authorized_keys:
-    - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDnhDuct8aXj6DX20ME1UISjgSsWO0+vgrG5B/u1qYUxFvjH9eohwi4hbILVHiMKvf/3W5wW7V+phJoTFtWuHX3GdR4V1irQ3azootcNQA7ix30EG/0ZX2f+zB6c/MYyJXk6QeRFs4d8Yp3FaDDMtjYlb2xYqnYAa+eKMOKck83PO1qVuzwZrPg1a0SLWOWaqZ7MMKEVv8n4VH4x1E+qX6cqNQtKi/25yUclD3E7D11i8w8wQUPit4NdK2hWr483wuJfXLrsz43jD5nMMFYsw7pacqpJ56eJMTvYDeHbloVoHVVG9Q9gFXxA3bT6l1c5rXETHe7FAbSBWEQtoT6rv4P ubuntu@group-15-ansible
+    - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDGB6CTLQFnFDh8a8Qs2xTDycd+mbcu7Fkrim6N5zGkc8h/Ypxd/P10/1hUccqRrx2c7aE0PXqoTsPouWFR6OHzbBS/voAfrQDm+C3CBno8aS8D61oEC724W1XW4hAVy/LlO7KoSJ32XXZAjNZ99v4OcW79oEco3X/Bz306rrw4s9ddbgQwHRskFYsfGrw7QLxuAn4X1ceVFKHcIFed/sayXSyyRTsy5+5EyPibQSdOMIQxkMg9QhRR2SrMhceSMtTfoB2+izIU051zTnKoIcdcik7q+AEqM1pYwG/ZE+ppX7cvE5TeZUbPlINV3dpr+4GRstPKRxqWKSm3vDUXaaV3 root@group_15_ansible
    sudo: ['ALL=(ALL) NOPASSWD:ALL']
 
 runcmd:
@@ -22,4 +22,4 @@ runcmd:
  - chmod 700 /home/ubuntu/.ssh
  - touch /home/ubuntu/.ssh/authorized_keys
  - chmod 600 /home/ubuntu/.ssh/authorized_keys
- - echo "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDnhDuct8aXj6DX20ME1UISjgSsWO0+vgrG5B/u1qYUxFvjH9eohwi4hbILVHiMKvf/3W5wW7V+phJoTFtWuHX3GdR4V1irQ3azootcNQA7ix30EG/0ZX2f+zB6c/MYyJXk6QeRFs4d8Yp3FaDDMtjYlb2xYqnYAa+eKMOKck83PO1qVuzwZrPg1a0SLWOWaqZ7MMKEVv8n4VH4x1E+qX6cqNQtKi/25yUclD3E7D11i8w8wQUPit4NdK2hWr483wuJfXLrsz43jD5nMMFYsw7pacqpJ56eJMTvYDeHbloVoHVVG9Q9gFXxA3bT6l1c5rXETHe7FAbSBWEQtoT6rv4P ubuntu@group-15-ansible" >> /home/ubuntu/.ssh/authorized_keys
+ - echo "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDGB6CTLQFnFDh8a8Qs2xTDycd+mbcu7Fkrim6N5zGkc8h/Ypxd/P10/1hUccqRrx2c7aE0PXqoTsPouWFR6OHzbBS/voAfrQDm+C3CBno8aS8D61oEC724W1XW4hAVy/LlO7KoSJ32XXZAjNZ99v4OcW79oEco3X/Bz306rrw4s9ddbgQwHRskFYsfGrw7QLxuAn4X1ceVFKHcIFed/sayXSyyRTsy5+5EyPibQSdOMIQxkMg9QhRR2SrMhceSMtTfoB2+izIU051zTnKoIcdcik7q+AEqM1pYwG/ZE+ppX7cvE5TeZUbPlINV3dpr+4GRstPKRxqWKSm3vDUXaaV3 root@group_15_ansible" >> /home/ubuntu/.ssh/authorized_keys

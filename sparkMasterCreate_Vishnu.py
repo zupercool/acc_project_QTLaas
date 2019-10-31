@@ -1,5 +1,5 @@
 # http://docs.openstack.org/developer/python-novaclient/ref/v2/servers.html
-import time, os, sys
+import time, os, sys, syslog
 import inspect
 from os import environ as env
 from  novaclient import client
@@ -8,13 +8,26 @@ from keystoneauth1 import loading
 from keystoneauth1 import session
 import shade
 
+
+hosts_file = '/etc/hosts'
+ansible_hosts_file = '/etc/ansible/hosts'
 flavor = "ssc.small" 
 private_net = "SNIC 2019/10-32 Internal IPv4 Network" 
 floating_ip_pool_name = None
 floating_ip = "130.238.28.103"
 image_name = "Ubuntu 16.04 LTS (Xenial Xerus) - latest"
-
+instanceName="15sparkMasterDummy"
 loader = loading.get_plugin_loader('password')
+
+
+if not os.geteuid()==0:
+    sys.exit("\nOnly root can run this script\n")
+'''
+f = open("/etc/hosts", "a+")     #open file for reading
+f.write(instanceName+" as")             #write the altered contents
+f.close()
+'''
+
 
 auth = loader.load_from_options(auth_url=env['OS_AUTH_URL'],
                                 username=env['OS_USERNAME'],
@@ -33,9 +46,6 @@ image = nova.glance.find_image(image_name)
 flavor = nova.flavors.find(name=flavor)
 
 cloud = shade.openstack_cloud()   
-'''ip=cloud.create_floating_ip()'''
-'''ip =[x for x in  cloud.list_floating_ips() if x['attached']==False ]
-if len(ip)== 0:'''
 ip=cloud.create_floating_ip('af006ff3-d68a-4722-a056-0f631c5a0039')
 print ip
 if private_net != None:
@@ -55,23 +65,31 @@ else:
 secgroups = ['default', 'vishnu','BootsmaSG']
 
 
-print "Creating instance ... "
-instance = nova.servers.create(name="15sparkMasterDummy", image=image, flavor=flavor, userdata=userdata, nics=nics,security_groups=secgroups)
+#print "Creating instance ... "
+instance = nova.servers.create(name=instanceName, image=image, flavor=flavor, userdata=userdata, nics=nics,security_groups=secgroups)
 inst_status = instance.status
-print "waiting for 10 seconds.. "
+#print "waiting for 10 seconds.. "
 time.sleep(10)
 
 while inst_status == 'BUILD':
-    print "Instance: "+instance.name+" is in "+inst_status+" state, sleeping for 5 seconds more..."
+   # print "Instance: "+instance.name+" is in "+inst_status+" state, sleeping for 5 seconds more..."
     time.sleep(5)
     instance = nova.servers.get(instance.id)
     inst_status = instance.status
 
-print instance.networks['SNIC 2019/10-32 Internal IPv4 Network'];
-print "Instance: "+ instance.name +" is in " + inst_status + "state";
-print "Associating Floating IP:"
-server = cloud.get_server("15sparkMasterDummy")
+#print instance.networks['SNIC 2019/10-32 Internal IPv4 Network'];
+#print "Instance: "+ instance.name +" is in " + inst_status + "state";
+#print "Associating Floating IP:"
+server = cloud.get_server(instanceName)
 cloud.add_ips_to_server(server, ips=ip['floating_ip_address'])
+print ip['floating_ip_address'];
 
-print instance
+f = open("/etc/hosts", "a+")     #open file for reading
+f.write('\n'+ip['floating_ip_address']+" "+instanceName)             #write the altered contents
+f.close()
+
+f = open(ansible_hosts_file, "a+")     #open file for reading
+f.write('[sparkmaster]\n')
+f.write(instanceName+' ansible_connection=ssh ansible_user=ubuntu\n')    #write the contents
+f.close()
 
