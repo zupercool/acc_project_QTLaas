@@ -1,4 +1,8 @@
 - hosts: all
+  module_defaults:
+    apt:
+      force_apt_get: yes
+      autoclean: yes	
   sudo: yes
   tasks:
 
@@ -15,9 +19,9 @@
    
    - name: Include variables
      include_vars: setup_var.yml 
-
-   - name: apt update
-     apt: update_cache=yes upgrade=dist
+   
+   - name : apt update
+     apt : update_cache=yes upgrade=dist
 
    - name: install java
      apt: pkg={{item}} state=installed update_cache=true 
@@ -109,7 +113,11 @@
       - IRdisplay
 
 - hosts: sparkmaster
-  
+  module_defaults:
+    apt:
+      force_apt_get: yes
+      autoclean: yes
+  sudo: yes 
   vars_files:
    - setup_var.yml  
 
@@ -164,7 +172,7 @@
      shell: nohup {{spark_home}}/sbin/start-master.sh  &
 
 - hosts: sparkworker
-    
+  sudo: yes  
   vars_files:
    - setup_var.yml
 
